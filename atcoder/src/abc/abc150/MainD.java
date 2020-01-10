@@ -8,28 +8,35 @@ public class MainD {
 		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();
 		long m = sc.nextLong();
-		boolean oddFlag = false;
-		boolean evenFlag = false;
+		int power = 0;
 		long leastCommon = 1;
 		for (int i = 0; i < n; i++) {
 			long num = sc.nextLong();
-			if (num % 4 == 0) {
-				evenFlag = true;
-			} else {
-				oddFlag = true;
+			int pow = calcTwoPow(num);
+			if (i == 0) {
+				power = pow;
+			} else if (power != pow) {
+				print(0);
+				return;
 			}
 			leastCommon = calcLeastCommon(leastCommon, num);
 			if (leastCommon > m * 2) {
 				print(0);
 				return;
 			}
-			if (oddFlag && evenFlag) {
-				print(0);
-				return;
-			}
+
 		}
 		print((m + leastCommon / 2) / leastCommon);
 		sc.close();
+	}
+
+	public static int calcTwoPow(long num) {
+		int count = 0;
+		while (num % 2 != 0) {
+			num = num / 2;
+			count++;
+		}
+		return count;
 	}
 
 	public static long calcLeastCommon(long x, long y) {
