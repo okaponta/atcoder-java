@@ -32,7 +32,7 @@ public class MainD {
 
 	public static int calcTwoPow(long num) {
 		int count = 0;
-		while (num % 2 != 0) {
+		while (num % 2 == 0) {
 			num = num / 2;
 			count++;
 		}
