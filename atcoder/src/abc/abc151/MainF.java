@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 public class MainF {
 
-	// WA�ł��B2�_�Ԃ̋�������Ԓ����Ƃ�������߂Ă���̂ł����A
-	// �ł�����2�_�𒼌a�Ƃ���~��`���Ă��A�_���͂ݏo��\�����l���ł��Ă��܂���B
-	// 0,0 ��0,20����ԉ���������������A10,13�Ȃ񂩂����͂ݏo�����Ⴄ�B
+	// WAです。2点間の距離が一番長いところを求めているのですが、
+	// 最も長い2点を直径とする円を描いても、点がはみ出る可能性を考慮できていません。
+	// 0,0 と0,20が一番遠い距離だったら、10,13なんかが今はみ出しちゃう。
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();

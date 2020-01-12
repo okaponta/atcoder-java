@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 
 public class MainE {
 
-	// TLEÇ≈Ç∑ÅB
+	// TLE„Åß„Åô
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();
