@@ -1,64 +1,52 @@
 package abc.abc151;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.Scanner;
-import java.util.stream.IntStream;
 
 public class MainE {
 
-	// TLEです
+	public static final int MOD = 1000000007;
+
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();
 		int k = sc.nextInt();
-		ArrayList<Integer> list = new ArrayList<>();
-		HashMap<Integer, Integer> map = new HashMap<>();
-		IntStream.rangeClosed(k - 2, n - 2).forEach(i -> map.put(i, nCk(i, k - 2, 1000000007)));
-		long sum = 0;
+
+		long[] factorial = new long[n];
+		long[] inverse = new long[n];
+		long[] factorial_inverse = new long[n];
+
+		factorial[0] = 1;
+		factorial[1] = 1;
+		inverse[1] = 1;
+		factorial_inverse[0] = 1;
+		factorial_inverse[1] = 1;
+		for (int i = 2; i < n; i++) {
+			factorial[i] = factorial[i - 1] * i % MOD;
+			inverse[i] = MOD - inverse[MOD % i] * (MOD / i) % MOD;
+			factorial_inverse[i] = factorial_inverse[i - 1] * inverse[i] % MOD;
+		}
+
+		long[] array = new long[n];
 		for (int i = 0; i < n; i++) {
-			list.add(sc.nextInt());
+			array[i] = sc.nextInt();
 		}
-		Collections.sort(list);
-		for (int i = 0; i < n; i++) {
-			for (int j = i + k - 1; j < n; j++) {
-				int subtract = j - i;
-				long weight = map.get(subtract - 1);
-				sum = sumLong(sum, weight * (list.get(j) - list.get(i)));
-			}
-		}
-		print(sum);
-		sc.close();
-	}
+		Arrays.sort(array);
 
-	public static int nCk(int n, int k, int M) {
-		long ret = 1;
-		int min = Math.min(k, n - k);
-		for (int i = 1; i <= min; i++) {
-			ret = (ret * pow(i, M - 2, M)) % M;
-		}
-		for (int i = n - min + 1; i <= n; i++) {
-			ret = (ret * i) % M;
-		}
-		return (int) ret;
-	}
+		long max = 0;
+		long min = 0;
 
-	// return a^b mod M O(logB)
-	public static long pow(long a, long b, int M) {
-		long ret = 1;
-		long tmp = a;
-		while (b > 0) {
-			if ((b & 1) == 1)
-				ret = (ret * tmp) % M;
-			tmp = (tmp * tmp) % M;
-			b = b >> 1;
+		for (int i = k; i <= n; i++) {
+			long combination = factorial[i - 1] * (factorial_inverse[k - 1] * factorial_inverse[i - k] % MOD) % MOD;
+			max = (max + array[i - 1] * combination) % MOD;
 		}
-		return ret;
-	}
 
-	public static long sumLong(long long1, long long2) {
-		return (long1 + long2) % 1000000007;
+		for (int i = k; i <= n; i++) {
+			long combination = factorial[i - 1] * (factorial_inverse[k - 1] * factorial_inverse[i - k] % MOD) % MOD;
+			min = (min + array[n - i] * combination) % MOD;
+		}
+
+		print((max + MOD - min) % MOD);
 	}
 
 	public static void print(Object obj) {
