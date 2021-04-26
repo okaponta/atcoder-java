@@ -15,9 +15,9 @@ public class MainD {
 		int[] answer = new int[n];
 
 		for (int i = 1; i <= n; i++) {
-			for (int j = i; j <= n; j++) {
+			for (int j = i + 1; j <= n; j++) {
 				int direct = j - i;
-				int shortCut = dist(i, x) + 1 + dist(j, y);
+				int shortCut = Math.abs(i - x) + 1 + Math.abs(j - y);
 				int dist = Math.min(direct, shortCut);
 				answer[dist]++;
 			}
@@ -27,10 +27,6 @@ public class MainD {
 			print(answer[i]);
 		}
 
-	}
-
-	public static int dist(int p, int q) {
-		return Math.max(q - p, p - q);
 	}
 
 	public static void print(Object obj) {
