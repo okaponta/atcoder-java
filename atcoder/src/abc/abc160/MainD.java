@@ -17,7 +17,7 @@ public class MainD {
 		for (int i = 1; i <= n; i++) {
 			for (int j = i + 1; j <= n; j++) {
 				int direct = j - i;
-				int shortCut = Math.abs(i - x) + 1 + Math(j - y);
+				int shortCut = Math.abs(i - x) + 1 + Math.abs(j - y);
 				int dist = Math.min(direct, shortCut);
 				answer[dist]++;
 			}
